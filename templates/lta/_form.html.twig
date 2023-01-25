@@ -1,0 +1,9 @@
+<div class="card-body">
+	{{ form_start(form) }}
+	{{ form_widget(form) }}
+</div>
+<div class="card-footer">
+	<button class="btn btn-success">{{ button_label|default('Enregistrer') }}</button>
+	<a href="{{ path('lta_index') }}" class="btn btn-default float-right">Annuler</a>
+</div>
+{{ form_end(form) }}

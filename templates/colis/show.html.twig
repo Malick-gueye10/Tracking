@@ -1,0 +1,55 @@
+{% extends 'baseAdmin.html.twig' %}
+{% block title %}Informations sur lecolis |
+	{{ parent() }}
+{% endblock %}
+{% block page_title %}Informations sur le Colis
+{% endblock %}
+{% block breadcrumb %}
+	<li class="breadcrumb-item">
+		<a href="{{path('home_page')}}">Accueil</a>
+	</li>
+	<li class="breadcrumb-item">
+		<a href="{{ path('lta_index') }}">Colis</a>
+	</li>
+	<li class="breadcrumb-item active">
+		Détails
+	</li>
+{% endblock %}
+
+{% block body %}
+	<div class="row">
+		<div class="col-lg-12">
+			<div class="card">
+				<div class="card-header"><style>.card-header{background-color: #1cb495;}</style>
+					<h3>
+						Informations sur le Colis
+					</h3>
+				</div>
+				<div class="card-body">
+					<table class="table">
+						<tbody>
+							<tr>
+								<th>Numéro Colis</th>
+								<td>{{colis.numColis }}</td>
+							</tr>
+                            <tr>
+                                <th>Numéro LTA</th>
+                                <td>{{colis.lta.numLTA }}</td>
+                            </tr>
+                            <tr>
+								<th>Description</th>
+								<td>{{colis.description  ?? '-' }}</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				<div class="card-footer">
+					<a href="{{ path('colis_edit', {'id':colis.id}) }}" class="btn btn-info">Modifier</a>
+					<a href="{{ path('colis_index') }}" class="btn btn-default float-right">Annuler</a>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+{% endblock %}

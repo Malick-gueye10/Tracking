@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>
+			{% block title %}Open Publication!
+			{% endblock %}
+		</title>
+		{# Run `composer require symfony/webpack-encore-bundle`
+																																																           and uncomment the following Encore helpers to start using Symfony UX #}
+		<link href="{{asset('./css/adminlte.css')}}" rel="stylesheet"/>
+		<link rel="stylesheet" href="{{asset('./plugins/fontawesome-free/css/all.min.css')}}">
+
+		{% block stylesheets %}
+			{#{{ encore_entry_link_tags('app') }}#}
+		{% endblock %}
+	</head>
+	<body class="hold-transition login-page">
+	{% block body %}
+	{% endblock %}
+	</body>
+
+
+</html>
+<script src="{{asset('./plugins/jquery/jquery.min.js')}}"></script>
+<script src="{{asset('./js/adminlte.js')}}"></script>
+{% block javascripts %}{% endblock %}</body></html>

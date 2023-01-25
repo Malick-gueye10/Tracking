@@ -1,0 +1,47 @@
+{% extends 'baseAdmin.html.twig' %}
+{% block title %}Modification Colis|
+	{{ parent() }}
+{% endblock %}
+{% block page_title %}Modification Colis
+{% endblock %}
+{% block stylesheets %}
+	<link rel="stylesheet" href="{{asset('./plugins/dropzone/min/dropzone.min.css')}}">
+	<link rel="stylesheet" href="{{asset('./plugins/summernote/summernote-bs4.min.css')}}">
+	<link rel="stylesheet" href="{{asset('./css/taginput.css')}}">
+	<link rel="stylesheet" href="{{asset('./plugins/select2/css/select2.min.css')}}">
+{% endblock %}
+
+{% block breadcrumb %}
+	<li class="breadcrumb-item">
+		<a href="{{path('home_page')}}">Accueil</a>
+	</li>
+	<li class="breadcrumb-item active">
+		<a href="{{path('lta_index')}}">Colis</a>
+	</li>
+	<li class="breadcrumb-item">Modification</li>
+{% endblock %}
+
+{% block body %}
+    <div class="row">
+		<div class="col-lg-12">
+			<div class="card">
+				<div class="card-header"><style>.card-header{background-color: #1cb495;}</style>
+					<h3>
+						Modification du Colis
+					</h3>
+				</div>
+				<div class="card-body">
+                    {{ include('colis/_form.html.twig', {'button_label': 'Sauvegarder'}) }}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block javascripts %}
+	<script src="{{asset('./plugins/summernote/summernote-bs4.min.js')}}"></script>
+	<script src="{{asset('./plugins/dropzone/min/dropzone.min.js')}}"></script>
+	<script src="{{asset('./js/article.js')}}"></script>
+	<script src="{{asset('./js/taginput.js')}}"></script>
+	<script src="{{asset('./plugins/select2/js/select2.full.min.js')}}"></script>
+
+{% endblock %}

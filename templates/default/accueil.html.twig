@@ -1,0 +1,57 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<title>Badis Tracking</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+        <link href="{{asset('./accueil/assets/css/main.css')}}" rel="stylesheet"/>
+	</head>
+	<body class="is-preload"style="background-image: url({{ asset('./accueil/images/bg01.jpg') }});">
+
+
+        <nav id="nav">
+            <a href="{{ path('app_login') }}"><button id="login-button"> Connexion</button></a>
+        </nav>
+
+        <style>
+            #nav{
+            position:relative;
+            }
+            #login-button {
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 100px;
+            height: 50px;
+        }
+        </style>
+		<!-- Header -->
+			<header id="header">
+				<h1>BADISCTECH </h1>
+				<p>SUIVI ET TRACABILITE </p>
+			</header>
+
+		<!-- Signup Form -->
+			<form id="signup-form" method="post" action="#">
+				<input type="text" name="email" id="text" placeholder="Saisir numéro de colis" />
+				<input type="submit" value="suivre" />
+			</form>
+
+		<!-- Footer -->
+			<footer id="footer">
+				<ul class="icons">
+					<li><a href="#" class="icon brands fa-twitter"><span class="label">Twitter</span></a></li>
+					<li><a href="#" class="icon brands fa-instagram"><span class="label">Instagram</span></a></li>
+					<li><a href="#" class="icon brands fa-github"><span class="label">GitHub</span></a></li>
+					<li><a href="#" class="icon fa-envelope"><span class="label">Email</span></a></li>
+				</ul>
+
+			</footer>
+            <style> 
+            </style>
+
+		<!-- Scripts -->
+			<script src="{{asset('./accueil/assets/js/main.js')}}"></script>
+
+	</body>
+</html>
