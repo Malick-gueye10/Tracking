@@ -13,13 +13,11 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 
-/**
- * @Route("/lta")
- */
+
 class LTAController extends AbstractController
 {
-/**
-     * @Route("/", name="lta_index", methods={"GET"})
+    /**
+     * @Route("/lta", name="lta_index", methods={"GET"})
      */
     public function index(LTARepository $ltaRepository): Response
     {
@@ -29,7 +27,7 @@ class LTAController extends AbstractController
     }
 
     /**
-     * @Route("/new", name="lta_new", methods={"GET","POST"})
+     * @Route("/lta/new", name="lta_new", methods={"GET","POST"})
      */
     public function new(Request $request, ManagerRegistry $doctrine): Response
     {
@@ -53,7 +51,7 @@ class LTAController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="lta_show", methods={"GET"})
+     * @Route("/lta/{id}", name="lta_show", methods={"GET"})
      */
     public function show(LTA $lta): Response
     {
@@ -63,15 +61,17 @@ class LTAController extends AbstractController
     }
 
     /**
-     * @Route("/{id}/edit", name="lta_edit", methods={"GET","POST"})
+     * @Route("/lta/{id}/edit", name="lta_edit", methods={"GET","POST"})
      */
     public function edit(Request $request, LTA $lta, ManagerRegistry $doctrine): Response
     {
         $form = $this->createForm(LTAType::class, $lta);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $this->$doctrine->getManager()->flush();
+        $em = $doctrine->getManager();
+        if($form->isSubmitted() && $form->isValid()) {
+            $em->persist($lta);
+            $em->flush();
             $this->addFlash('info', 'La revue a été modifiée');
 
             return $this->redirectToRoute('lta_index', [], Response::HTTP_SEE_OTHER);
@@ -84,7 +84,7 @@ class LTAController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="lta_delete", methods={"POST"})
+     * @Route("/lta/delete/{id}", name="lta_delete", methods={"POST"})
      */
     public function delete(Request $request, LTA $lta, ManagerRegistry $doctrine): Response
     {
@@ -133,22 +133,5 @@ class LTAController extends AbstractController
         ]);
     }
 
-    /**
-     * @Route("/lta/enroute/{id}", name="lta_enroute")
-     */
-    public function arriveetLTA(LTA $lta, ManagerRegistry $doctrine): Response
-    {
-        $entityManager = $doctrine->getManager();
-        $lta
-            ->setState(LTA::ARRIVEE_STATE)
-            ->setDateDepart(new DateTime())
-            ->setState(LTA::ARRIVEE_STATE);
-        $this->addFlash('info', 'Le colis est arrivée!');
-        $entityManager->flush();
-
-        return $this->redirectToRoute('lta_show', [
-            'id'    => $lta->getId()
-        ]);
-    }
 
 }

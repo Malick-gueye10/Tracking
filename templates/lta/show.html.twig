@@ -53,7 +53,7 @@
 								<b>
 									Date de départ :
 								</b>
-								{{ lta.savedDate | format_datetime(locale='fr') | capitalize  }}
+								{{ lta.savedDate | format_datetime(locale='en') | capitalize  }}
 								<br/>
 							
 							<b>
@@ -71,9 +71,9 @@
 									{#{% if is_granted('ROLE_ADMIN') %}#}
 										<a class="btn btn-sm btn-success" href="{{ path('lta_enroute', {'id': lta.id}) }}">En Route</a>
 									{#{% endif %}#}
-								{% elseif lta.state == constant('App\\Entity\\LTA::ENROUTE_STATE') %}
+								{# {% elseif lta.state == constant('App\\Entity\\LTA::ENROUTE_STATE') %} #}
 									{#{% if is_granted('ROLE_ADMIN') %}#}
-										<a class="btn btn-sm btn-success" href="{{ path('lta_arrivee', {'id': lta.id}) }}">Arrivée</a>
+										{# <a class="btn btn-sm btn-success" href="{{ path('lta_arrivee', {'id': lta.id}) }}">Arrivée</a> #}
 									{#{% endif %}#}
 								{% endif %}
 								<a class="btn btn-sm btn-default" href="{{ path('lta_index') }}">Retour</a>

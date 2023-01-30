@@ -3,15 +3,16 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
+
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[UniqueEntity(fields: ['email'], message: 'There is already an account with this email')]
+
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
@@ -31,25 +32,13 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column]
     private ?string $password = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $prenom = null;
+
 
     #[ORM\Column(length: 255)]
     private ?string $nom = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $adresse = null;
-
-    #[ORM\Column(length: 15)]
-    private ?string $telephone = null;
-
-    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Colis::class)]
-    private Collection $colis;
-
-    public function __construct()
-    {
-        $this->colis = new ArrayCollection();
-    }
+    private ?string $prenom = null;
 
     public function getId(): ?int
     {
@@ -90,18 +79,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return array_unique($roles);
     }
 
-    public function getRoleLabel(): string
-    {
-        if (in_array('ROLE_ADMIN', $this->roles)) {
-            return 'Administrateur';
-        }
-
-        if (in_array('ROLE_CLIENT', $this->roles)) {
-            return 'Client';
-        }
-        return '';
-    }
-
     public function setRoles(array $roles): self
     {
         $this->roles = $roles;
@@ -132,19 +109,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         // If you store any temporary, sensitive data on the user, clear it here
         // $this->plainPassword = null;
     }
-
-    public function getPrenom(): ?string
-    {
-        return $this->prenom;
-    }
-
-    public function setPrenom(string $prenom): self
-    {
-        $this->prenom = $prenom;
-
-        return $this;
-    }
-
     public function getNom(): ?string
     {
         return $this->nom;
@@ -157,56 +121,14 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function getAdresse(): ?string
+    public function getPrenom(): ?string
     {
-        return $this->adresse;
+        return $this->prenom;
     }
 
-    public function setAdresse(string $adresse): self
+    public function setPrenom(string $prenom): self
     {
-        $this->adresse = $adresse;
-
-        return $this;
-    }
-
-    public function getTelephone(): ?string
-    {
-        return $this->telephone;
-    }
-
-    public function setTelephone(string $telephone): self
-    {
-        $this->telephone = $telephone;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection<int, Colis>
-     */
-    public function getColis(): Collection
-    {
-        return $this->colis;
-    }
-
-    public function addColi(Colis $coli): self
-    {
-        if (!$this->colis->contains($coli)) {
-            $this->colis->add($coli);
-            $coli->setUser($this);
-        }
-
-        return $this;
-    }
-
-    public function removeColi(Colis $coli): self
-    {
-        if ($this->colis->removeElement($coli)) {
-            // set the owning side to null (unless already changed)
-            if ($coli->getUser() === $this) {
-                $coli->setUser(null);
-            }
-        }
+        $this->prenom = $prenom;
 
         return $this;
     }

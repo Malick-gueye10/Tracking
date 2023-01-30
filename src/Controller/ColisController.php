@@ -12,13 +12,11 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 
-/**
- * @Route("/colis")
- */
+
 class ColisController extends AbstractController
 {
-/**
-     * @Route("/", name="colis_index", methods={"GET"})
+    /**
+     * @Route("/colis", name="colis_index", methods={"GET"})
      */
     public function index(ColisRepository $colisRepository): Response
     {
@@ -28,7 +26,7 @@ class ColisController extends AbstractController
     }
 
     /**
-     * @Route("/new", name="colis_new", methods={"GET","POST"})
+     * @Route("/colis/new", name="colis_new", methods={"GET","POST"})
      */
     public function new(Request $request, ManagerRegistry $doctrine): Response
     {
@@ -52,7 +50,7 @@ class ColisController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="colis_show", methods={"GET"})
+     * @Route("/colis/{id}", name="colis_show", methods={"GET"})
      */
     public function show(Colis $colis): Response
     {
@@ -62,7 +60,7 @@ class ColisController extends AbstractController
     }
 
     /**
-     * @Route("/{id}/edit", name="colis_edit", methods={"GET","POST"})
+     * @Route("/colis/{id}/edit", name="colis_edit", methods={"GET","POST"})
      */
     public function edit(Request $request, Colis $colis, ManagerRegistry $doctrine): Response
     {
@@ -83,7 +81,7 @@ class ColisController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="colis_delete", methods={"POST"})
+     * @Route("/colis/delete/{id}", name="colis_delete", methods={"POST"})
      */
     public function delete(Request $request, Colis $colis, ManagerRegistry $doctrine): Response
     {

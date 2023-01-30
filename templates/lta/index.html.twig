@@ -43,7 +43,7 @@
 								<tr>
 									<td>{{ lta.numLTA }}</td>
 									<td class="text-success">{{ lta.getStateLabel | raw }}</td>
-									<td>{{ lta.savedDate | format_datetime(locale='fr') | capitalize  }}</td>
+									<td>{{ lta.savedDate | format_datetime(locale='en') | capitalize  }}</td>
 									<td>
 										<a href="{{ path('lta_show', {'id': lta.id}) }}">
 											<i class="fas fa-eye"></i>

@@ -22,8 +22,7 @@ class Colis
     #[ORM\Column(length: 255)]
     private ?string $description = null;
 
-    #[ORM\ManyToOne(inversedBy: 'colis')]
-    private ?User $user = null;
+
 
     public function getId(): ?int
     {
@@ -66,15 +65,4 @@ class Colis
         return $this;
     }
 
-    public function getUser(): ?User
-    {
-        return $this->user;
-    }
-
-    public function setUser(?User $user): self
-    {
-        $this->user = $user;
-
-        return $this;
-    }
 }
