@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
@@ -39,6 +41,20 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\Column(length: 255)]
     private ?string $prenom = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $adresse = null;
+
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Colis::class)]
+    private Collection $colis;
+
+    #[ORM\Column(length: 255)]
+    private ?string $telephone = null;
+
+    public function __construct()
+    {
+        $this->colis = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -77,6 +93,19 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $roles[] = 'ROLE_USER';
 
         return array_unique($roles);
+    }
+
+    public function getRoleLabel(): string
+    {
+        if (in_array('ROLE_ADMIN', $this->roles)) {
+            return 'Administrateur';
+        }
+
+        if (in_array('ROLE_CLIENT', $this->roles)) {
+            return 'Client';
+        }
+
+        return '';
     }
 
     public function setRoles(array $roles): self
@@ -129,6 +158,60 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setPrenom(string $prenom): self
     {
         $this->prenom = $prenom;
+
+        return $this;
+    }
+
+    public function getAdresse(): ?string
+    {
+        return $this->adresse;
+    }
+
+    public function setAdresse(string $adresse): self
+    {
+        $this->adresse = $adresse;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Colis>
+     */
+    public function getColis(): Collection
+    {
+        return $this->colis;
+    }
+
+    public function addColi(Colis $coli): self
+    {
+        if (!$this->colis->contains($coli)) {
+            $this->colis->add($coli);
+            $coli->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeColi(Colis $coli): self
+    {
+        if ($this->colis->removeElement($coli)) {
+            // set the owning side to null (unless already changed)
+            if ($coli->getUser() === $this) {
+                $coli->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getTelephone(): ?string
+    {
+        return $this->telephone;
+    }
+
+    public function setTelephone(string $telephone): self
+    {
+        $this->telephone = $telephone;
 
         return $this;
     }
